@@ -9,7 +9,7 @@ import ru.netology.web.data.DataHelper;
 
   @Name("Страница входа")
 public class LoginPage extends AkitaPage {
-  @Name("Логин")
+ @Name("Логин")
   @FindBy(css = "[data-test-id=login] input")
   public SelenideElement loginField;
   @Name("Пароль")

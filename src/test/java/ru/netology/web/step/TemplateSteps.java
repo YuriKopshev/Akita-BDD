@@ -1,5 +1,6 @@
 package ru.netology.web.step;
 
+import com.codeborne.selenide.Selenide;
 import cucumber.api.PendingException;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Пусть;
@@ -19,12 +20,12 @@ import static ru.alfabank.tests.core.helpers.PropertyLoader.loadProperty;
 
 public class TemplateSteps {
   private final AkitaScenario scenario = AkitaScenario.getInstance();
-    private String secondCard;
+
 
     @Пусть("^пользователь залогинен с именем \"([^\"]*)\" и паролем \"([^\"]*)\"$")
   public void loginWithNameAndPassword(String login, String password) {
     val loginUrl = loadProperty("loginUrl");
-    open(loginUrl);
+    Selenide.open(loginUrl);
 
     scenario.setCurrentPage(page(LoginPage.class));
     val loginPage = (LoginPage) scenario.getCurrentPage().appeared();
@@ -35,7 +36,8 @@ public class TemplateSteps {
     val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
     scenario.setCurrentPage(verificationPage.validVerify(verificationCode));
 
-    scenario.getCurrentPage().appeared();
+
+
   }
 
   @Когда("^он переводит \"([^\"]*)\" рублей с карты с номером \"([^\"]*)\" на свою \"([^\"]*)\" карту с главной страницы;$")

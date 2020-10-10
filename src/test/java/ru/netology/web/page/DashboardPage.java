@@ -24,9 +24,6 @@ public class DashboardPage extends AkitaPage {
   private final String balanceStart = "баланс: ";
   private final String balanceFinish = " р.";
 
-  public DashboardPage() {
-    heading.shouldBe(visible);
-  }
 
   public CardTransferPage chooseFirstCard() {
     firstCard.click();
