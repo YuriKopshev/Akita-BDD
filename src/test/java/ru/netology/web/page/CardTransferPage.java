@@ -24,11 +24,17 @@ public class CardTransferPage extends AkitaPage {
 
 
 
-    public void transferMoney(DataHelper.CardInfo cardInfo, String sum) {
-        amountField.setValue(String.valueOf(sum));
-        fromField.setValue(cardInfo.getCardNumber());
-        button.click();
-    }
+//    public void transferMoney(DataHelper.CardInfo cardInfo, String sum) {
+//        amountField.setValue(String.valueOf(sum));
+//        fromField.setValue(cardInfo.getCardNumber());
+//        button.click();
+//    }
+        public AkitaPage makeTransferMoney(String amount, String cardNumber) {
+            amountField.setValue(amount);
+            fromField.setValue(cardNumber);
+            button.click();
+            return new DashboardPage();
+        }
 
 }
 

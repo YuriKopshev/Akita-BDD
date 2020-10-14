@@ -1,13 +1,13 @@
 package ru.netology.web.step;
 
 import com.codeborne.selenide.Selenide;
-import cucumber.api.PendingException;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Пусть;
 import cucumber.api.java.ru.Тогда;
 import lombok.val;
 import ru.alfabank.alfatest.cucumber.api.AkitaScenario;
 import ru.netology.web.data.DataHelper;
+import ru.netology.web.page.CardTransferPage;
 import ru.netology.web.page.DashboardPage;
 import ru.netology.web.page.LoginPage;
 import ru.netology.web.page.VerificationPage;
@@ -35,25 +35,26 @@ public class TemplateSteps {
     val verificationPage = (VerificationPage) scenario.getCurrentPage().appeared();
     val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
     scenario.setCurrentPage(verificationPage.validVerify(verificationCode));
-
-
-
   }
 
-  @Когда("^он переводит \"([^\"]*)\" рублей с карты с номером \"([^\"]*)\" на свою \"([^\"]*)\" карту с главной страницы;$")
-  public void transferMoneySecondToFirstCard(String sum, String secondCard, String firstCard) throws Throwable {
-   val dashboardPage = (DashboardPage) scenario.getCurrentPage().appeared();
-    val transferPage = dashboardPage.chooseSecondCard();
-    transferPage.transferMoney(DataHelper.getFirstCardNumber(), sum);
 
-  }
+    @Когда("^он переводит \"([^\"]*)\" рублей с карты с номером \"([^\"]*)\" на свою \"1\" карту с главной страницы;$")
+    public void makeTransferToSecondCardToFirst(String amountToTransfer, String numberOfCardFromTransfer)  {
+        val dashboardPage = (DashboardPage) scenario.getCurrentPage().appeared();
+        scenario.setCurrentPage(dashboardPage.chooseFirstCard());
+        val transferPage = new CardTransferPage();
+        scenario.setCurrentPage(transferPage);
+        //val transferPage = (CardTransferPage) scenario.getCurrentPage().appeared();
+        transferPage.makeTransferMoney(amountToTransfer, numberOfCardFromTransfer);
+        scenario.getCurrentPage().appeared();
+    }
 
     @Тогда("^баланс его \"([^\"]*)\" карты из списка на главной странице должен стать \"([^\"]*)\" рублей\\.$")
     public void balanceFirstCardVerify(String firstCard, String sum) throws Throwable {
         val dashBoardPage = (DashboardPage) scenario.getCurrentPage().appeared();
         val actualResultFirst = dashBoardPage.getFirstCardBalance();
-        assertEquals(actualResultFirst,sum);
-
-
+        assertEquals(String.valueOf(actualResultFirst), sum);
     }
-}
+    }
+
+
