@@ -42,10 +42,8 @@ public class TemplateSteps {
     public void makeTransferToSecondCardToFirst(String amountToTransfer, String numberOfCardFromTransfer)  {
         val dashboardPage = (DashboardPage) scenario.getCurrentPage().appeared();
         scenario.setCurrentPage(dashboardPage.chooseFirstCard());
-        val transferPage = new CardTransferPage();
-        scenario.setCurrentPage(transferPage);
-        //val transferPage = (CardTransferPage) scenario.getCurrentPage().appeared();
-        transferPage.makeTransferMoney(amountToTransfer, numberOfCardFromTransfer);
+        val transferPage = (CardTransferPage)scenario.getCurrentPage().appeared();
+        scenario.setCurrentPage(transferPage.makeTransferMoney(amountToTransfer,numberOfCardFromTransfer));
         scenario.getCurrentPage().appeared();
     }
 
@@ -56,5 +54,11 @@ public class TemplateSteps {
         assertEquals(String.valueOf(actualResultFirst), sum);
     }
     }
+
+
+
+
+
+
 
 

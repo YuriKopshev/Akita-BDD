@@ -8,9 +8,9 @@ import ru.alfabank.alfatest.cucumber.api.AkitaPage;
 import ru.netology.web.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-    @Name("Страница перевода")
+import static com.codeborne.selenide.Selenide.*;
+
+@Name("Страница перевода")
 public class CardTransferPage extends AkitaPage {
     @Name("Сумма")
     @FindBy(css = "[data-test-id=amount] input.input__control")
@@ -29,11 +29,11 @@ public class CardTransferPage extends AkitaPage {
 //        fromField.setValue(cardInfo.getCardNumber());
 //        button.click();
 //    }
-        public AkitaPage makeTransferMoney(String amount, String cardNumber) {
+        public DashboardPage makeTransferMoney(String amount, String cardNumber) {
             amountField.setValue(amount);
             fromField.setValue(cardNumber);
             button.click();
-            return new DashboardPage();
+            return page(DashboardPage.class);
         }
 
 }

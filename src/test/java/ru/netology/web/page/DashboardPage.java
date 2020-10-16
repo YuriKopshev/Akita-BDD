@@ -1,14 +1,13 @@
 package ru.netology.web.page;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
 import org.openqa.selenium.support.FindBy;
 import ru.alfabank.alfatest.cucumber.annotations.Name;
 import ru.alfabank.alfatest.cucumber.api.AkitaPage;
+
+import static com.codeborne.selenide.Selenide.*;
 
 @Name("Дашбоард")
 public class DashboardPage extends AkitaPage {
@@ -26,7 +25,7 @@ public class DashboardPage extends AkitaPage {
 
   public CardTransferPage chooseFirstCard() {
     firstCard.click();
-    return new CardTransferPage();
+    return page(CardTransferPage.class);
   }
 
   public CardTransferPage chooseSecondCard() {
